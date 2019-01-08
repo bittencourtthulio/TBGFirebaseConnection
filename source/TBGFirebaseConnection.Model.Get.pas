@@ -45,7 +45,7 @@ implementation
 uses
   System.SysUtils;
 
-{ TFirebaseConnectionModelGet }
+{ TFirebaseConnectionModelGet_ }
 
 function TFirebaseConnectionModelGet.&End: iFirebaseConnection;
 begin
