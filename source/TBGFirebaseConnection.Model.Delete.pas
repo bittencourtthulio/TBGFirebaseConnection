@@ -38,7 +38,7 @@ implementation
 uses
   System.SysUtils, System.Classes;
 
-{ TFirebaseConnectionModelDelete }
+{ TFirebaseConnectionModelDeletes }
 
 function TFirebaseConnectionModelDelete.&End: iFirebaseConnection;
 var
