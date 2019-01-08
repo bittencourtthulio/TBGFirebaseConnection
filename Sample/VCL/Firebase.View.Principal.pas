@@ -8,7 +8,7 @@ uses
   FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS,
   FireDAC.Phys.Intf, FireDAC.DApt.Intf, TBGFirebaseConnection.View.Connection,
   Vcl.StdCtrls, FireDAC.Comp.DataSet, FireDAC.Comp.Client, Vcl.Grids,
-  Vcl.DBGrids, Vcl.ExtCtrls;
+  Vcl.DBGrids, Vcl.ExtCtrls, Datasnap.DBClient;
 
 type
   TForm6 = class(TForm)
@@ -25,6 +25,7 @@ type
     edtResource: TLabeledEdit;
     Button3: TButton;
     Button4: TButton;
+    ClientDataSet1: TClientDataSet;
     procedure Button1Click(Sender: TObject);
     procedure Button2Click(Sender: TObject);
     procedure Button3Click(Sender: TObject);
@@ -57,14 +58,14 @@ begin
   .&End
   .Get
     .Resource(edtResource.Text)           //Recurso "Tabela" que será consumida
-    .DataSet(FDMemTable1)                 //Pode setar o DataSet que vai receber o retorno da Consulta
+    .DataSet(ClientDataSet1)                 //Pode setar o DataSet que vai receber o retorno da Consulta
     .ResponseContent(Json)                //Pode setar um (JsonObject/JsonArray/String) que irá receber o retorno da Consulta
   .&End
   .Exec;
 
-  FDMemTable1.Fields[0].DisplayWidth := 20;
-  FDMemTable1.Fields[1].DisplayWidth := 20;
-  FDMemTable1.Fields[2].DisplayWidth := 60;
+//  FDMemTable1.Fields[0].DisplayWidth := 20;
+//  FDMemTable1.Fields[1].DisplayWidth := 20;
+//  FDMemTable1.Fields[2].DisplayWidth := 60;
 
   Memo1.Lines.Clear;
   Memo1.Lines.Add(Json.ToJSON);
@@ -78,10 +79,25 @@ begin
   //A Forma mais correta e fácil para armazenar e recuperar dados no Firebase
   //é salvando JsonObjects dentro de um JsonArray Pai, assim os dados ficam
   //Sempre Organizados na leitura e conversão para o DataSet
-
-
   JsonArray := TJsonArray.Create;
+  JsonObject := TJsonObject.Create;
   try
+
+
+    TBGFirebaseConnection1
+    .Connect
+      .BaseURL(edtBaseURL.Text)
+      .Auth(edtAuth.Text)
+      .uId(edtUID.Text)
+    .&End
+    .Get
+      .Resource(edtResource.Text)           //Recurso "Tabela" que será consumida
+     // .DataSet(ClientDataSet1)                 //Pode setar o DataSet que vai receber o retorno da Consulta
+      .ResponseContent(JsonArray)                //Pode setar um (JsonObject/JsonArray/String) que irá receber o retorno da Consulta
+    .&End
+    .Exec;
+
+
     //Adicionando o Primeiro Registro ao Array "Tabela" de Clientes
     JsonArray.AddElement(
       TJsonObject.Create
@@ -91,7 +107,7 @@ begin
     );
 
     //Adicionando o Segundo Registro ao Array "Tabela" de Clientes
-    JsonArray.Add(
+    JsonArray.AddElement(
       TJsonObject.Create
         .AddPair('ID', TJSONNumber.Create(2))
         .AddPair('NOME', 'Maria Chiquinha')

@@ -129,8 +129,14 @@ object Form6: TForm6
     Top = 144
   end
   object DataSource1: TDataSource
-    DataSet = FDMemTable1
+    DataSet = ClientDataSet1
     Left = 696
     Top = 144
+  end
+  object ClientDataSet1: TClientDataSet
+    Aggregates = <>
+    Params = <>
+    Left = 480
+    Top = 232
   end
 end
