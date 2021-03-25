@@ -10,6 +10,8 @@ uses
   IdTCPConnection,
   IdTCPClient,
   IdHTTP,
+  System.Net.URLClient,
+  System.NetConsts,
   System.Net.HttpClient;
 
 Type
@@ -18,7 +20,6 @@ Type
     FParent : iFirebaseConnection;
     FResource : String;
     FJson : TJsonObject;
-    FJson2 : String;
     FRegisterID : Integer;
   public
     constructor Create(Parent : iFirebaseConnection);
@@ -42,9 +43,7 @@ uses
 
 function TFirebaseConnectionModelDelete.&End: iFirebaseConnection;
 var
-  lJsonStream: TStringStream;
   lIdHTTP: THTTPClient;
-  lResponse: string;
   lUrl: string;
   AResponseContent : TStringStream;
 begin

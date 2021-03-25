@@ -8,6 +8,8 @@ uses
   System.Classes,
   System.Notification,
   System.PushNotification,
+  System.Net.URLClient,
+  System.NetConsts,
   {$IFDEF ANDROID}FMX.PushNotification.Android, {$ENDIF}
   {$IFDEF IOS} FMX.PushNotification.iOS,{$ENDIF}
   System.Threading,
@@ -17,8 +19,8 @@ uses
 Type
   TFirebaseCloudMessage = class(TInterfacedObject, iFirebaseCloudMessage)
   private
-    FPushService: TPushService;
-    ServiceConnection: TPushServiceConnection;
+    //FPushService: TPushService;
+    //ServiceConnection: TPushServiceConnection;
     FRemetenteCode : String;
     FAPIKey : String;
     FDeviceList : TStringList;

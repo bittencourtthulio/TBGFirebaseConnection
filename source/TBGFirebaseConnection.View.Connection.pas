@@ -6,7 +6,7 @@ uses
   TBGFirebaseConnection.Interfaces, System.Classes;
 
 Type
-  [ComponentPlatformsAttribute(pidWin32 or pidWin64 or pidAndroid)]
+  [ComponentPlatformsAttribute(pidWin32 or pidWin64 or pidAndroid32Arm or pidAndroid64Arm)]
   TTBGFirebaseConnection = class(TComponent, iFirebaseConnection)
     private
       FConnect : iFirebaseConnect;
