@@ -10,6 +10,8 @@ uses
   IdTCPConnection,
   IdTCPClient,
   IdHTTP,
+  System.Net.URLClient,
+  System.NetConsts,
   System.Net.HttpClient;
 
 Type
@@ -18,7 +20,6 @@ Type
     FParent : iFirebaseConnection;
     FResource : String;
     FJson : TJsonObject;
-    FJson2 : String;
     FJsonArray : TJsonArray;
     FRegisterID : Integer;
   public
@@ -46,11 +47,11 @@ function TFirebaseConnectionModelPatch.&End: iFirebaseConnection;
 var
   lJsonStream: TStringStream;
   lIdHTTP: THTTPClient;
-  lResponse: string;
   lUrl: string;
   AResponseContent : TStringStream;
 begin
   Result := FParent;
+  lJsonStream := nil;
   try
     if Assigned(FJson) then
       lJsonStream := TStringStream.Create(Utf8Encode(FJson.ToJSON));

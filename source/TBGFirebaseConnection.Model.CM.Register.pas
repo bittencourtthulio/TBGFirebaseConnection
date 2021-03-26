@@ -7,6 +7,7 @@ uses
   System.Classes,
   System.Notification,
   System.PushNotification,
+  System.Generics.Collections,
   {$IFDEF ANDROID}FMX.PushNotification.Android, {$ENDIF}
   {$IFDEF IOS} FMX.PushNotification.iOS,{$ENDIF}
   System.Threading;
@@ -104,8 +105,6 @@ procedure TFirebaseCMRegister.DoReceiveNotificationEvent(Sender: TObject;
 var
   MessageText: string;
   x: Integer;
-  obj: TJSONObject;
-  MyJSONPair: TJSONPair;
 begin
   try
     for x := 0 to ServiceNotification.DataObject.Count - 1 do
@@ -150,7 +149,6 @@ var
   Firebase : TTBGFirebaseConnection;
   Json : TJsonObject;
   JsonArray : TJsonArray;
-  ResponseJson : String;
   FDataSet : TClientDataSet;
   FExist : Boolean;
 begin
